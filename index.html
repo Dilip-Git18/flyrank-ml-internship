@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Machine Learning Based Content Refresh Prioritization</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px;
+    line-height: 1.6;
+    color: #222;
+}
+
+h1, h2 {
+    color: #1f4e79;
+}
+
+.card {
+    background: #f7f7f7;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+img {
+    max-width: 700px;
+    width: 100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+Machine Learning Based Content Refresh Prioritization
+</h1>
+
+<p>
+<b>Author:</b> Dilip Kumar
+</p>
+
+
+<div class="card">
+
+<h2>Abstract</h2>
+
+<p>
+This research explores whether machine learning can identify website content pages
+that may require refresh or optimization based on historical performance signals.
+A classification approach was developed using anonymized content performance data.
+A Random Forest model was compared against a baseline classifier using the same
+validation split. The model achieved 82.7% accuracy compared with a 50.2% baseline.
+The resulting system provides ranked recommendations that support content teams
+in prioritizing pages for review.
+</p>
+
+</div>
+
+
+<h2>1. Introduction / Problem Statement</h2>
+
+<p>
+Content teams manage thousands of pages and need a systematic way to identify
+which pages should be reviewed, refreshed, or monitored.
+This project investigates whether machine learning can provide useful
+decision-support signals for content prioritization.
+</p>
+
+
+<h2>2. Data</h2>
+
+<p>
+Dataset used:
+</p>
+
+<pre>
+data/raw/content_refresh_anonymized.csv
+</pre>
+
+<p>
+The dataset contains anonymized content performance records including:
+</p>
+
+<ul>
+<li>Search volume</li>
+<li>Competition</li>
+<li>CPC</li>
+<li>Content characteristics</li>
+<li>Historical impressions</li>
+<li>Clicks</li>
+<li>Page views</li>
+<li>Sessions</li>
+</ul>
+
+<p>
+No client identifiers, URLs, or private search queries were used.
+</p>
+
+
+<h2>3. Methodology</h2>
+
+<h3>Features</h3>
+
+<ul>
+<li>Search volume</li>
+<li>Competition</li>
+<li>CPC</li>
+<li>Word count</li>
+<li>Character count</li>
+<li>Historical impressions</li>
+</ul>
+
+
+<h3>Label Definition</h3>
+
+<p>
+A performance score was created from historical engagement metrics.
+Pages below the median performance score were labeled as potential refresh
+candidates.
+</p>
+
+
+<h3>Baseline</h3>
+
+<p>
+A DummyClassifier using the most frequent class was used as the baseline.
+</p>
+
+
+<h3>Model</h3>
+
+<p>
+A Random Forest classifier was trained using an 80/20 train-test split.
+</p>
+
+
+<h3>Leakage Checks</h3>
+
+<p>
+Metrics directly used to create the target label were excluded from model
+features to reduce target leakage.
+</p>
+
+
+<h2>4. Results</h2>
+
+
+<table>
+
+<tr>
+<th>Model</th>
+<th>Accuracy</th>
+</tr>
+
+<tr>
+<td>Baseline</td>
+<td>50.2%</td>
+</tr>
+
+<tr>
+<td>Random Forest</td>
+<td>82.7%</td>
+</tr>
+
+</table>
+
+
+<br>
+
+<img src="work/outputs/model_comparison.png"
+alt="Model comparison chart">
+
+
+<p>
+The Random Forest model improved accuracy compared with the baseline,
+showing that historical content signals can provide useful directional
+information for prioritization.
+</p>
+
+
+<h2>5. Limitations</h2>
+
+<ul>
+
+<li>
+The refresh label is based on observed historical performance signals,
+not actual editorial refresh outcomes.
+</li>
+
+<li>
+The model cannot account for external factors such as search algorithm
+changes, competitor activity, or market changes.
+</li>
+
+<li>
+Predictions should support human review rather than automatically trigger
+content changes.
+</li>
+
+</ul>
+
+
+<h2>6. Ranked Recommendations</h2>
+
+<p>
+The model generates an action queue ranking content pages by refresh probability.
+Higher probability pages should be reviewed first.
+</p>
+
+<ul>
+
+<li>
+Review high-priority pages for freshness and search intent alignment.
+</li>
+
+<li>
+Improve outdated information and content depth where necessary.
+</li>
+
+<li>
+Monitor lower priority pages instead of applying unnecessary updates.
+</li>
+
+</ul>
+
+
+<h2>7. Reproducibility</h2>
+
+<p>
+The complete notebook, code, and generated artifacts are available in the
+GitHub repository.
+</p>
+
+<p>
+Notebook:
+work/notebooks/capstone.ipynb
+</p>
+
+
+<h2>8. Acknowledgments & Data Credit</h2>
+
+<p>
+Built on the FlyRank ML Internship dataset.
+</p>
+
+<p>
+Data source:
+<a href="https://flyrank.ai">
+https://flyrank.ai
+</a>
+</p>
+
+
+</body>
+
+</html>
